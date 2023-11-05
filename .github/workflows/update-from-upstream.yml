@@ -3,6 +3,7 @@ name: Update from Upstream
 on:
   schedule:
     - cron: '0 0 * * *' 
+  workflow_dispatch:
 
 jobs:
   fetch-upstream:
@@ -14,6 +15,8 @@ jobs:
 
     - name: Fetch upstream changes
       run: |
+        git config --global user.name "sync-bot"
+        git config --global user.email "minaminaoy@gmail.com"
         git remote add upstream https://github.com/solidity-docs/ja-japanese.git
         git fetch upstream
         git merge upstream/develop --allow-unrelated-histories
