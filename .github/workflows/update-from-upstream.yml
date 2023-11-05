@@ -1,23 +1,17 @@
-name: Update from Upstream
+name: Sync Fork
 
 on:
   schedule:
-    - cron: '0 0 * * *' 
-  workflow_dispatch:
+    - cron: '* * * * *' # every 30 minutes
+  workflow_dispatch: # on button click
 
 jobs:
-  fetch-upstream:
+  sync:
+
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout forked repo
-      uses: actions/checkout@v2
-
-    - name: Fetch upstream changes
-      run: |
-        git config --global user.name "sync-bot"
-        git config --global user.email "minaminaoy@gmail.com"
-        git remote add upstream https://github.com/solidity-docs/ja-japanese.git
-        git fetch upstream
-        git merge upstream/develop --allow-unrelated-histories
-        git push origin develop
+      - uses: tgymnich/fork-sync@v1.8
+        with:
+          base: develop
+          head: develop
