@@ -170,9 +170,9 @@ IPFSの場合、 ``ipfs add`` が返すCIDに含まれるハッシュ（ファ�
     },
     // 必須: コンパイルされたソースファイル/ソースユニット。キーはファイルパス。
     "sources": {
-      "destructible": {
+      "settable": {
         // 必須（「url」が使用されていない場合）: ソースファイルのリテラルコンテンツ
-        "content": "contract destructible is owned { function destroy() { if (msg.sender == owner) selfdestruct(owner); } }",
+        "content": "contract settable is owned { uint256 private x = 0; function set(uint256 _x) public { if (msg.sender == owner) x = _x; } }",
         // 必須: ソースファイルのkeccak256ハッシュ
         "keccak256": "0x234..."
       },
@@ -253,7 +253,7 @@ solcのリリースビルドでは、上記のようにバージョンを3バイ
 .. note::
 
   CBORマッピングには他のキーも含まれている可能性があるため、CBORの長さについてはバイトコードの最後を見てデータを完全にデコードし、適切なCBORパーサーを使う方がよいです。
-  ``0xa264`` や ``0xa2 0x64 'i' 'p' 'f' 's'`` で始まることはは当てになりません。
+  ``0xa264`` や ``0xa2 0x64 'i' 'p' 'f' 's'`` で始まることは当てになりません。
 
 インターフェースの自動生成とNatSpecの使用方法
 =============================================
